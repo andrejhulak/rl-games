@@ -52,3 +52,9 @@ class NeuralNet(object):
     def forget_inter(self):
       global inter
       inter = []
+
+    def print_weights(self):
+      print(self.input_layer)
+      for i in range(len(self.hidden_layers_dict)):
+        print(self.hidden_layers_dict[f'hidden_layer_{i}'])
+      print(self.output_layer)

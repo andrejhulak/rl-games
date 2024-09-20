@@ -40,10 +40,10 @@ class PongGame:
       self.y_speed = 1
     if self.ball.x <= 0:
       self.right_score += 1
-      self.reset_ball()
+      self.reset_game()
     if self.ball.x >= self.WIDTH:
       self.left_score += 1
-      self.reset_ball()
+      self.reset_game()
     if self.right_paddle.x - self.ball.width <= self.ball.x <= self.right_paddle.right and \
       self.right_paddle.top - self.ball.width <= self.ball.y <= self.right_paddle.bottom + self.ball.width:
       self.x_speed = -1
@@ -54,9 +54,12 @@ class PongGame:
     self.ball.x += self.x_speed * 2
     self.ball.y += self.y_speed * 2
 
-  def reset_ball(self):
+  def reset_game(self):
     self.ball.center = (self.WIDTH / 2, self.HEIGHT / 2)
     self.x_speed, self.y_speed = random.choice([1, -1]), random.choice([1, -1])
+
+    self.right_paddle.center = (self.WIDTH - 100, self.HEIGHT / 2)
+    self.left_paddle.center = (100, self.HEIGHT / 2)
 
   def update_left_paddle(self, input_y):
     self.left_paddle.bottom += input_y
