@@ -34,6 +34,7 @@ class PongGame:
   #       self.right_paddle.bottom += 3
 
   def update_ball(self):
+    left_paddle_hit = False
     if self.ball.y >= self.HEIGHT:
       self.y_speed = -1
     if self.ball.y <= 0:
@@ -51,8 +52,8 @@ class PongGame:
       self.left_paddle.top - self.ball.width <= self.ball.y <= self.left_paddle.bottom + self.ball.width:
       self.x_speed = 1
 
-    self.ball.x += self.x_speed * 2
-    self.ball.y += self.y_speed * 2
+    self.ball.x += self.x_speed
+    self.ball.y += self.y_speed
 
   def reset_game(self):
     self.ball.center = (self.WIDTH / 2, self.HEIGHT / 2)
@@ -66,9 +67,9 @@ class PongGame:
 
   def update_right_paddle(self):
     if self.right_paddle.y < self.ball.y:
-      self.right_paddle.top += 1
+      self.right_paddle.top += 2
     if self.right_paddle.bottom > self.ball.y:
-      self.right_paddle.bottom -= 1
+      self.right_paddle.bottom -= 2
 
   def draw(self):
     self.SCREEN.fill("black")
