@@ -55,7 +55,7 @@ def calculate_reward_and_action(game):
 if __name__ == "__main__":
   game = PongGame(W, H)
 
-  lr = 0.00001
+  lr = 0.0001
 
   # TODO: maybe add ball speed?
   in_shape = 6
@@ -79,6 +79,8 @@ if __name__ == "__main__":
       'left_score': game.left_score,
       'right_score': game.right_score
   }
+
+  i = 0
 
   while True:
     game.run(input_y)
@@ -108,11 +110,15 @@ if __name__ == "__main__":
 
     # print(f"Reward: {grad}, Correct Action: {correct_action}, Chosen Action: {choice}")
 
-    if len(list_out) >= 10:  
-      optim.optimize(learning_rate=lr)
-      optim.zero_grad()
+    # if len(list_out) >= 10:  
+    if prev_game_state['right_score'] < game.right_score:
+      # if i <= 2000: 
+        optim.optimize(learning_rate=lr)
+        optim.zero_grad()
 
-      ai.forget_inter()
-      input_tensors = []
-      list_actions = []
-      list_out = []
+        ai.forget_inter()
+        input_tensors = []
+        list_actions = []
+        list_out = []
+        i = i + 1
+        # print(i)
