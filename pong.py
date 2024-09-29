@@ -24,14 +24,14 @@ class PongGame:
 
     self.x_speed, self.y_speed = random.choice([1, -1]), random.choice([1, -1])
 
-  # def handle_input(self):
-  #   keys_pressed = pygame.key.get_pressed()
-  #   if keys_pressed[pygame.K_UP]:
-  #     if self.right_paddle.top > 0:
-  #       self.right_paddle.top -= 3
-  #   if keys_pressed[pygame.K_DOWN]:
-  #     if self.right_paddle.bottom < self.HEIGHT:
-  #       self.right_paddle.bottom += 3
+  def handle_input(self):
+    keys_pressed = pygame.key.get_pressed()
+    if keys_pressed[pygame.K_UP]:
+      if self.right_paddle.top > 0:
+        self.right_paddle.top -= 2
+    if keys_pressed[pygame.K_DOWN]:
+      if self.right_paddle.bottom < self.HEIGHT:
+        self.right_paddle.bottom += 2
 
   def update_ball(self):
     left_paddle_hit = False
@@ -67,9 +67,9 @@ class PongGame:
 
   def update_right_paddle(self):
     if self.right_paddle.y < self.ball.y:
-      self.right_paddle.top += 2
+      self.right_paddle.top += 1
     if self.right_paddle.bottom > self.ball.y:
-      self.right_paddle.bottom -= 2
+      self.right_paddle.bottom -= 1
 
   def draw(self):
     self.SCREEN.fill("black")
@@ -93,6 +93,7 @@ class PongGame:
     self.update_ball()
     self.update_left_paddle(input_y)
     self.update_right_paddle()
+    # self.handle_input()
     self.draw()
 
     pygame.display.update()

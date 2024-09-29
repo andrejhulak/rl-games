@@ -33,7 +33,7 @@ def sigmoid(x):
 def nn_out_to_y(out):
   logits = out.data.reshape(2)
   probs = softmax(logits)
-  # print(probs)
+  print(probs)
   log_probs = np.log(probs)
   choice = np.random.choice([0, 1], p=probs)
   return choice, log_probs[choice]
@@ -43,14 +43,11 @@ def calculate_reward_and_action(game):
     ball_y = game.ball.y
     
     if paddle_center > ball_y:
-        # Ball is above the paddle center, move up
-        return 1.0, 0  # Reward for correct action, action 0 (move up)
+        return 1.0, 0  
     elif paddle_center < ball_y:
-        # Ball is below the paddle center, move down
-        return 1.0, 1  # Reward for correct action, action 1 (move down)
+        return 1.0, 1 
     else:
-        # Paddle is aligned with the ball
-        return 2.0, None  # Higher reward for perfect alignment, no movement needed
+        return 2.0, None  
 
 if __name__ == "__main__":
   game = PongGame(W, H)
@@ -98,8 +95,8 @@ if __name__ == "__main__":
     
     if correct_action is not None:
       grad = np.zeros(out_shape)
-      grad[correct_action] = -1.0
-      grad[1 - correct_action] = 1.0 
+      grad[correct_action] = 1.0
+      grad[1 - correct_action] = -1.0 
       grad = grad.reshape(1, -1)
       out.backward(grad=grad)
 
@@ -109,16 +106,13 @@ if __name__ == "__main__":
       input_y = 3 
 
     # print(f"Reward: {grad}, Correct Action: {correct_action}, Chosen Action: {choice}")
-
+# 
     # if len(list_out) >= 10:  
     if prev_game_state['right_score'] < game.right_score:
-      # if i <= 2000: 
-        optim.optimize(learning_rate=lr)
-        optim.zero_grad()
+      optim.optimize(learning_rate=lr)
+      optim.zero_grad()
 
-        ai.forget_inter()
-        input_tensors = []
-        list_actions = []
-        list_out = []
-        i = i + 1
-        # print(i)
+      ai.forget_inter()
+      input_tensors = []
+      list_actions = []
+      list_out = []

@@ -7,7 +7,7 @@ class Optimizer():
 
   def optimize(self, learning_rate):
     for param in self.parameters:
-      param.data -= learning_rate * param.grad
+      param.data += learning_rate * param.grad
   
   def zero_grad(self):
     for param in self.parameters:
